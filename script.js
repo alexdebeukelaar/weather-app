@@ -1,6 +1,7 @@
+//Fetching the API
 getWeather();
 
-const api= 'b91e0723c4c56cf89f1061f3e57202cd'
+const apiKey= 'b91e0723c4c56cf89f1061f3e57202cd';
 async function getWeather(){
     const response = await fetch('http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={b91e0723c4c56cf89f1061f3e57202cd}');
     const data = await response.json();
@@ -9,11 +10,20 @@ async function getWeather(){
     window.addEventListener('load', () => {});
     let long;
     let lat;
+    // Finding the location
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             long = position.coords.longitude;
             lat = position.coords.latitude;
+
+            //icon url for weather icons
+            const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            const celsius = 
+            
+            //sunset and sunrise
+            const sunriseGMT = new Date(sunrise * 1000);
+            const sunsetGMT = new Date(sunset * 1000);
            
         });
       }
-    });
+  
