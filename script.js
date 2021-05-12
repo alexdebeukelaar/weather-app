@@ -3,7 +3,7 @@ getWeather();
 
 const apiKey= 'b91e0723c4c56cf89f1061f3e57202cd';
 async function getWeather(){
-    const response = await fetch('http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={b91e0723c4c56cf89f1061f3e57202cd}');
+    const response = await fetch('b91e0723c4c56cf89f1061f3e57202cd');
     const data = await response.json();
     console.log(data)}
 
@@ -24,6 +24,10 @@ async function getWeather(){
             const sunriseGMT = new Date(sunrise * 1000);
             const sunsetGMT = new Date(sunset * 1000);
            
+             // Interacting with DOM to show data
+          iconImg.src = iconUrl;
+          loc.textContent = `${place}`;
+          desc.textContent = `${description}`;
         });
       }
   
