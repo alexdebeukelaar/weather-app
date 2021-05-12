@@ -1,33 +1,48 @@
 //Fetching the API
-getWeather();
+const api= {
+  key:"b91e0723c4c56cf89f1061f3e57202cd",
+  baseurl:"http://api.openweathermap.org/data/2.5",
+}
 
-const apiKey= 'b91e0723c4c56cf89f1061f3e57202cd';
-async function getWeather(){
-    const response = await fetch('b91e0723c4c56cf89f1061f3e57202cd');
-    const data = await response.json();
-    console.log(data)}
+//making the search box work
+const searchbox = document.querySelector('.search-box');
+searchbox.addEventListener('keypress', setQuery);
 
-    window.addEventListener('load', () => {});
-    let long;
-    let lat;
-    // Finding the location
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            long = position.coords.longitude;
-            lat = position.coords.latitude;
+//number 13 = enter key!
+function setQuery(evt) {
+  if (evt.keycode == 13) {
+    getResults(searchbox.value);
+  }
+}
 
-            //icon url for weather icons
-            const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-            const celsius = 
-            
-            //sunset and sunrise
-            const sunriseGMT = new Date(sunrise * 1000);
-            const sunsetGMT = new Date(sunset * 1000);
-           
-             // Interacting with DOM to show data
-          iconImg.src = iconUrl;
-          loc.textContent = `${place}`;
-          desc.textContent = `${description}`;
-        });
-      }
-  
+//Getting results of the searchbox
+function getResults (query){
+  fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+  .then(weather =>{ 
+    return weather.json();
+  }).then(DisplayResults);
+}
+
+//Displaying Results
+function DisplayResults (weather) {
+  console.log(weather);
+  let city = document.querySelector('.location .city');
+  city.innerText = `${weather.name}, ${weather.sys.country}`;
+
+  let now = new Date();
+  let date = document.querySelector ('.location.date');
+  date.innerText = dateBuilder(now);
+}
+
+//function for the date
+function dateBuilder (d) {
+  let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  let day = Day[d.getDay()];
+  let date = d.getDate();
+  let month = months[d.getMonth()];
+  let year = d.getFullYear();
+
+  return `${day} ${date} ${month} ${year}`
+}
